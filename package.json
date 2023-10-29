@@ -1,8 +1,8 @@
 {
-  "name": "typescript-action",
+  "name": "deploy-to-portainer",
   "description": "GitHub Actions TypeScript template",
-  "version": "0.0.0",
-  "author": "",
+  "version": "1.0.0",
+  "author": "datntdev@outlook.com",
   "private": true,
   "homepage": "https://github.com/actions/typescript-action",
   "repository": {
