@@ -37,7 +37,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Deploy to Portainer
-        uses: datntdev0/actions-deploy-to-portainer@v1
+        uses: datntdev0/action-deploy-to-portainer@v0.1.0
         with:
           portainerHost: ${{ secrets.PORTAINER_HOST }}
           portainerApiKey: ${{ secrets.PORTAINER_API_KEY }}
