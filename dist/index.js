@@ -2770,10 +2770,10 @@ async function run() {
         core.info('Getting existing stack...');
         const stackList = await apiInstance.getStackListAsync();
         // Delete existing stack
-        core.info('Deleting existing stack...');
         const deleteRequests = stackList
             .filter(x => x.Name.includes(params.portainerStackName))
             .map(async (x) => apiInstance.deleteStackAsync(x.Id));
+        core.info(`Deleting existing ${deleteRequests.length} stack(s)...`);
         await Promise.all(deleteRequests);
         // Deploy new stack
         core.info('Deploying new stack...');
@@ -2873,6 +2873,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+const core = __importStar(__nccwpck_require__(186));
 const utils = __importStar(__nccwpck_require__(314));
 class PortainerApiInstance {
     _host;
@@ -2892,7 +2893,10 @@ class PortainerApiInstance {
             redirect: 'follow'
         };
         const response = await fetch(`${this._host}/api/stacks?filters={"EndpointID":2,"IncludeOrphanedStacks":true}`, requestOptions);
-        return (await response.json());
+        const jsonResponse = await response.json();
+        if (!response.ok)
+            core.setFailed(JSON.stringify(jsonResponse));
+        return jsonResponse;
     }
     async deleteStackAsync(stackId) {
         const requestOptions = {
@@ -2900,7 +2904,9 @@ class PortainerApiInstance {
             headers: this._defaultHeaders,
             redirect: 'follow'
         };
-        await fetch(`${this._host}/api/stacks/${stackId}?endpointId=${this._envId}`, requestOptions);
+        const response = await fetch(`${this._host}/api/stacks/${stackId}?endpointId=${this._envId}`, requestOptions);
+        if (!response.ok)
+            core.setFailed(JSON.stringify(response));
     }
     async postStandaloneStackFromFile() {
         const formdata = new FormData();
@@ -2914,7 +2920,10 @@ class PortainerApiInstance {
             redirect: 'follow'
         };
         const response = await fetch(`${this._host}/api/stacks/create/standalone/file?endpointId=${this._envId}`, requestOptions);
-        return (await response.json());
+        const jsonResponse = await response.json();
+        if (!response.ok)
+            core.setFailed(JSON.stringify(jsonResponse));
+        return jsonResponse;
     }
     getDefaultHeaders() {
         const headers = new Headers();

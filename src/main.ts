@@ -16,10 +16,10 @@ export async function run(): Promise<void> {
     const stackList = await apiInstance.getStackListAsync()
 
     // Delete existing stack
-    core.info('Deleting existing stack...')
     const deleteRequests = stackList
       .filter(x => x.Name.includes(params.portainerStackName))
       .map(async x => apiInstance.deleteStackAsync(x.Id))
+    core.info(`Deleting existing ${deleteRequests.length} stack(s)...`)
     await Promise.all(deleteRequests)
 
     // Deploy new stack
