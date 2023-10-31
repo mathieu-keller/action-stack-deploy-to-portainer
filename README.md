@@ -1,7 +1,11 @@
 # Portainer Deployment Action
 
+[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-black.svg)](https://sonarcloud.io/summary/new_code?id=datntdev0_action-deploy-to-portainer)
+
 ![GitHub Super-Linter](https://github.com/datntdev0/action-deploy-to-portainer/actions/workflows/linter.yml/badge.svg)
 ![CI](https://github.com/datntdev0/action-deploy-to-portainer/actions/workflows/continuous-integration.yml/badge.svg)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=datntdev0_action-deploy-to-portainer&metric=coverage)](https://sonarcloud.io/summary/new_code?id=datntdev0_action-deploy-to-portainer)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=datntdev0_action-deploy-to-portainer&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=datntdev0_action-deploy-to-portainer)
 
 ## Overview
 
