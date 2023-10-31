@@ -1,5 +1,6 @@
 import { Stack } from './models'
 import { Parameters } from './parameters'
+import * as core from '@actions/core'
 import * as utils from './utils'
 
 export default class PortainerApiInstance {
@@ -26,7 +27,9 @@ export default class PortainerApiInstance {
       `${this._host}/api/stacks?filters={"EndpointID":2,"IncludeOrphanedStacks":true}`,
       requestOptions
     )
-    return (await response.json()) as Stack[]
+    const jsonResponse = await response.json()
+    if (!response.ok) core.setFailed(JSON.stringify(jsonResponse))
+    return jsonResponse as Stack[]
   }
 
   async deleteStackAsync(stackId: number): Promise<void> {
@@ -36,10 +39,11 @@ export default class PortainerApiInstance {
       redirect: 'follow'
     } as RequestInit
 
-    await fetch(
+    const response = await fetch(
       `${this._host}/api/stacks/${stackId}?endpointId=${this._envId}`,
       requestOptions
     )
+    if (!response.ok) core.setFailed(JSON.stringify(response))
   }
 
   async postStandaloneStackFromFile(): Promise<Stack> {
@@ -62,7 +66,9 @@ export default class PortainerApiInstance {
       `${this._host}/api/stacks/create/standalone/file?endpointId=${this._envId}`,
       requestOptions
     )
-    return (await response.json()) as Stack
+    const jsonResponse = await response.json()
+    if (!response.ok) core.setFailed(JSON.stringify(jsonResponse))
+    return jsonResponse as Stack
   }
 
   private getDefaultHeaders(): Headers {

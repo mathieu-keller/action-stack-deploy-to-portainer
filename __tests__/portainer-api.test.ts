@@ -41,7 +41,7 @@ describe('PortainerApiInstance', () => {
   })
 
   it('should delete stack', async () => {
-    mockFetch.mockResolvedValueOnce({ ok: true })
+    mockFetch.mockResolvedValueOnce({ ok: false })
 
     await instance.deleteStackAsync(123)
 
