@@ -44,7 +44,7 @@ jobs:
           portainerEnvId: ${{ secrets.PORTAINER_ENV_ID }}
           portainerStackName: 'my-app'
           portainerFilePath: './docker-compose.yml'
-          portainerEnvVars: "[{'name': 'name', 'value': 'value'}]"
+          portainerEnvVars: '[{"name": "name", "value": "value"}]'
 ```
 
 In this example, the action is triggered whenever there’s a push to the main branch. It checks out your code and then uses your action to deploy a Docker Compose file to Portainer. The necessary parameters are passed to the action, with sensitive information like the host URL and API key being stored as GitHub secrets.
