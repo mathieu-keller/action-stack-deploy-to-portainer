@@ -1,6 +1,5 @@
-name: 'Deploy to Portainer'
-description: 'Deploy services to Portainer using GitHub Actions'
-author: 'Dat Nguyen (datntdev@outlook.com)'
+name: 'Update a Portainer stack'
+description: 'Updates the stack definition in Portainer by using GitHub Actions'
 branding:
   icon: layers
   color: blue
