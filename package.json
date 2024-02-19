@@ -1,22 +1,7 @@
 {
   "name": "deploy-to-portainer",
-  "description": "GitHub Actions TypeScript template",
   "version": "1.0.0",
-  "author": "datntdev@outlook.com",
-  "private": true,
-  "homepage": "https://github.com/actions/typescript-action",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/actions/typescript-action.git"
-  },
-  "bugs": {
-    "url": "https://github.com/actions/typescript-action/issues"
-  },
-  "keywords": [
-    "actions",
-    "node",
-    "setup"
-  ],
+  "description": "",
   "exports": {
     ".": "./dist/index.js"
   },
