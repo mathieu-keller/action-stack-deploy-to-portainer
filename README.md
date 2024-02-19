@@ -1,11 +1,9 @@
 # Portainer Deployment Action
 
-[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-black.svg)](https://sonarcloud.io/summary/new_code?id=datntdev0_action-deploy-to-portainer)
-
-![GitHub Super-Linter](https://github.com/datntdev0/action-deploy-to-portainer/actions/workflows/linter.yml/badge.svg)
-![CI](https://github.com/datntdev0/action-deploy-to-portainer/actions/workflows/continuous-integration.yml/badge.svg)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=datntdev0_action-deploy-to-portainer&metric=coverage)](https://sonarcloud.io/summary/new_code?id=datntdev0_action-deploy-to-portainer)
-[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=datntdev0_action-deploy-to-portainer&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=datntdev0_action-deploy-to-portainer)
+[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-black.svg)](https://sonarcloud.io/summary/new_code?id=mathieu-keller_action-stack-deploy-to-portainer)
+[![Build](https://github.com/mathieu-keller/action-stack-deploy-to-portainer/actions/workflows/build.yaml/badge.svg)](https://github.com/mathieu-keller/action-stack-deploy-to-portainer/actions/workflows/build.yaml)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=mathieu-keller_action-stack-deploy-to-portainer&metric=coverage)](https://sonarcloud.io/summary/new_code?id=mathieu-keller_action-stack-deploy-to-portainer)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=mathieu-keller_action-stack-deploy-to-portainer&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=mathieu-keller_action-stack-deploy-to-portainer)
 
 ## Overview
 
@@ -19,7 +17,6 @@ The action takes the following parameters:
 | --- | --- | --- |
 | `portainerHost` | The host URL of the Portainer instance | Yes |
 | `portainerApiKey` | The API key for the Portainer instance | Yes |
-| `portainerEnvId` | The environment ID in Portainer where the stack will be deployed | Yes |
 | `portainerStackName` | The name of the stack to be deployed in Portainer | Yes |
 | `portainerFilePath` | The file path of the Docker Compose file to be deployed | Yes |
 | `portainerEnvVars` | Environment variables to be passed to the stack | No |
@@ -41,11 +38,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Deploy to Portainer
-        uses: datntdev0/action-deploy-to-portainer@v0.1.0
+        uses: mathieu-keller/action-deploy-to-portainer@1.0.0
         with:
           portainerHost: ${{ secrets.PORTAINER_HOST }}
           portainerApiKey: ${{ secrets.PORTAINER_API_KEY }}
-          portainerEnvId: ${{ secrets.PORTAINER_ENV_ID }}
           portainerStackName: 'my-app'
           portainerFilePath: './docker-compose.yml'
           portainerEnvVars: '[{"name": "name", "value": "value"}]'

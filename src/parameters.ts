@@ -3,9 +3,8 @@ import * as core from '@actions/core'
 export type Parameters = {
   portainerHost: string
   portainerApiKey: string
-  portainerEnvId: string
   portainerStackName: string
-  portainerEnvVars: string
+  portainerEnvVars?: string
   portainerFilePath: string
 }
 
@@ -20,7 +19,6 @@ export function getParameters(): Parameters {
   return {
     portainerHost: core.getInput('portainerHost', { required: true }),
     portainerApiKey: core.getInput('portainerApiKey', { required: true }),
-    portainerEnvId: core.getInput('portainerEnvId', { required: true }),
     portainerStackName: core.getInput('portainerStackName', { required: true }),
     portainerFilePath: core.getInput('portainerFilePath', { required: true }),
     portainerEnvVars: core.getInput('portainerEnvVars', { required: false })

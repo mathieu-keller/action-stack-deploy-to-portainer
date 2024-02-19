@@ -8,24 +8,7 @@ import { getParameters } from './parameters'
  */
 export async function run(): Promise<void> {
   try {
-    const params = getParameters()
-    const apiInstance = new PortainerApiInstance(params)
-
-    // Get existing stack
-    core.info('Getting existing stack...')
-    const stackList = await apiInstance.getStackListAsync()
-
-    // Delete existing stack
-    const deleteRequests = stackList
-      .filter(x => x.Name.includes(params.portainerStackName))
-      .map(async x => apiInstance.deleteStackAsync(x.Id))
-    core.info(`Deleting existing ${deleteRequests.length} stack(s)...`)
-    await Promise.all(deleteRequests)
-
-    // Deploy new stack
-    core.info('Deploying new stack...')
-    await apiInstance.postStandaloneStackFromFile()
-
+    await new PortainerApiInstance(getParameters()).updateStackFromFile()
     core.info('Done!')
   } catch (error) {
     // Fail the workflow run if an error occurs

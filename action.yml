@@ -12,9 +12,6 @@ inputs:
   portainerApiKey:
     description: 'The API key for the Portainer instance'
     required: true
-  portainerEnvId:
-    description: 'The environment ID in Portainer where the stack will be deployed'
-    required: true
   portainerStackName:
     description: 'The name of the stack to be deployed in Portainer'
     required: true

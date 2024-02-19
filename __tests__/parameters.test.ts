@@ -13,20 +13,16 @@ describe('getParameters', () => {
     expect(parameters).toEqual({
       portainerHost: 'mock value for portainerHost',
       portainerApiKey: 'mock value for portainerApiKey',
-      portainerEnvId: 'mock value for portainerEnvId',
       portainerStackName: 'mock value for portainerStackName',
       portainerFilePath: 'mock value for portainerFilePath',
       portainerEnvVars: 'mock value for portainerEnvVars'
     })
 
-    expect(mockGetInput).toHaveBeenCalledTimes(6)
+    expect(mockGetInput).toHaveBeenCalledTimes(5)
     expect(mockGetInput).toHaveBeenCalledWith('portainerHost', {
       required: true
     })
     expect(mockGetInput).toHaveBeenCalledWith('portainerApiKey', {
-      required: true
-    })
-    expect(mockGetInput).toHaveBeenCalledWith('portainerEnvId', {
       required: true
     })
     expect(mockGetInput).toHaveBeenCalledWith('portainerStackName', {
@@ -41,7 +37,6 @@ describe('getParameters', () => {
 
     expect(parameters.portainerHost).toBe('mock value for portainerHost')
     expect(parameters.portainerApiKey).toBe('mock value for portainerApiKey')
-    expect(parameters.portainerEnvId).toBe('mock value for portainerEnvId')
     expect(parameters.portainerStackName).toBe(
       'mock value for portainerStackName'
     )

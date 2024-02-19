@@ -1,0 +1,128 @@
+name: Build
+
+on:
+  pull_request:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  dry-release:
+    name: dry release
+    uses: mathieu-keller/github-action-workflows/.github/workflows/semantic-release.yaml@2.0.1
+    with:
+      release-branch: main
+      dry: true
+  npm:
+    name: cache node modules
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        id: npm-cache-node-modules
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-npm-cache-${{ hashFiles('package-lock.json') }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: npm install if cache is invalid
+        if: steps.npm-cache-node-modules.outputs.cache-hit != 'true'
+        run: npm install
+  lint:
+    needs:
+      - npm
+    name: Lint
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        id: npm-cache-node-modules
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-npm-cache-${{ hashFiles('package-lock.json') }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Lint
+        id: npm-lint
+        run: npm run lint
+  check-format:
+    needs:
+      - npm
+    name: check-format
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        id: npm-cache-node-modules
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-npm-cache-${{ hashFiles('package-lock.json') }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Check Format
+        id: npm-format-check
+        run: npm run format:check
+  tests:
+    needs:
+      - npm
+    name: tests
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        id: npm-cache-node-modules
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-npm-cache-${{ hashFiles('package-lock.json') }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Test
+        id: npm-ci-test
+        run: npm run ci-test
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  test-action:
+    name: GitHub Actions Test
+    runs-on: ubuntu-22.04
+    needs:
+      - lint
+      - check-format
+      - tests
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v4
+
+      - name: Test Local Action
+        id: test-action
+        uses: ./
+        with:
+          portainerHost: ${{ secrets.PORTAINER_HOST }}
+          portainerApiKey: ${{ secrets.PORTAINER_API_KEY }}
+          portainerStackName: 'test-stack'
+          portainerFilePath: '__tests__/docker-compose.yml'
+  release:
+    needs:
+      - test-action
+    name: release
+    uses: mathieu-keller/github-action-workflows/.github/workflows/semantic-release.yaml@2.0.1
+    with:
+      release-branch: main
+      dry: false
