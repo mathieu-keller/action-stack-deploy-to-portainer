@@ -287,4 +287,13 @@ describe('PortainerApiInstance', () => {
       expect.objectContaining({ method: 'PUT' })
     )
   })
+
+  it('replace the template values', async () => {
+    const instance = new PortainerApiInstance({
+      ...parameters,
+      portainerEnvVars: JSON.stringify({ version: 'latest' })
+    })
+    const file = instance.getStackDefinition()
+    expect(file).toContain('nginx:latest')
+  })
 })

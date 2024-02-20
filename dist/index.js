@@ -24878,12 +24878,8 @@ class PortainerApiInstance {
             return Promise.reject(new Error(`Stack with name '${this._parameters.portainerStackName}' not found`));
         }
         core.info(`Found ${stack.Name} stack`);
-        const stackContentFile = fs_1.default.readFileSync(this._parameters.portainerFilePath, 'utf8');
-        const envVars = this._parameters.portainerEnvVars
-            ? JSON.parse(this._parameters.portainerEnvVars)
-            : undefined;
+        const stackContentFile = this.getStackDefinition();
         const body = {
-            env: envVars,
             prune: true,
             pullImage: true,
             stackFileContent: stackContentFile
@@ -24899,6 +24895,16 @@ class PortainerApiInstance {
         const jsonResponse = await response.json();
         if (!response.ok)
             return Promise.reject(new Error(JSON.stringify(jsonResponse)));
+    }
+    getStackDefinition() {
+        let stackContentFile = fs_1.default.readFileSync(this._parameters.portainerFilePath, 'utf8');
+        const envVars = this._parameters.portainerEnvVars
+            ? JSON.parse(this._parameters.portainerEnvVars)
+            : undefined;
+        for (const [key, value] of Object.entries(envVars || {})) {
+            stackContentFile = stackContentFile.replace(new RegExp(`\\{\\{${key}}}`, 'g'), value);
+        }
+        return stackContentFile;
     }
     getDefaultHeaders() {
         const headers = new Headers();

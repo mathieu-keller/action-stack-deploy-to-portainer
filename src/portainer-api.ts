@@ -47,15 +47,8 @@ export default class PortainerApiInstance {
       )
     }
     core.info(`Found ${stack.Name} stack`)
-    const stackContentFile = fs.readFileSync(
-      this._parameters.portainerFilePath,
-      'utf8'
-    )
-    const envVars = this._parameters.portainerEnvVars
-      ? JSON.parse(this._parameters.portainerEnvVars)
-      : undefined
+    const stackContentFile = this.getStackDefinition()
     const body = {
-      env: envVars,
       prune: true,
       pullImage: true,
       stackFileContent: stackContentFile
@@ -75,6 +68,23 @@ export default class PortainerApiInstance {
     const jsonResponse = await response.json()
     if (!response.ok)
       return Promise.reject(new Error(JSON.stringify(jsonResponse)))
+  }
+
+  getStackDefinition(): string {
+    let stackContentFile = fs.readFileSync(
+      this._parameters.portainerFilePath,
+      'utf8'
+    )
+    const envVars = this._parameters.portainerEnvVars
+      ? JSON.parse(this._parameters.portainerEnvVars)
+      : undefined
+    for (const [key, value] of Object.entries(envVars || {})) {
+      stackContentFile = stackContentFile.replace(
+        new RegExp(`\\{\\{${key}}}`, 'g'),
+        value as string
+      )
+    }
+    return stackContentFile
   }
 
   private getDefaultHeaders(): Headers {
