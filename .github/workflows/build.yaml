@@ -107,15 +107,16 @@ jobs:
       - name: Test Local Action
         id: test-action
         uses: ./
-        with:
+        secrets:
           portainerHost: ${{ secrets.PORTAINER_HOST }}
           portainerApiKey: ${{ secrets.PORTAINER_API_KEY }}
-          portainerStackName: 'test-stack'
-          portainerFilePath: '__tests__/docker-compose.yml'
           portainerEnvVars: >
             {
               "version": "latest"
             }
+        with:
+          portainerStackName: 'test-stack'
+          portainerFilePath: '__tests__/docker-compose.yml'
   release:
     needs:
       - test-action
