@@ -23,7 +23,7 @@
   "postUpdateOptions": [ "npmDedupe" ],
   "pre-commit": {
     "enabled": true
-  }
+  },
   "customManagers": [
     {
       "customType": "regex",
