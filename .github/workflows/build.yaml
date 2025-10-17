@@ -109,6 +109,8 @@ jobs:
       - name: Checkout
         id: checkout
         uses: actions/checkout@v4
+      - name: Test Portainer connectivity
+        run: curl -v ${{ secrets.PORTAINER_HOST }}/api/system/status
       - name: Test Local Action
         id: test-action
         uses: ./
