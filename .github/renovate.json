@@ -35,6 +35,6 @@
       ],
       "datasourceTemplate": "node-version",
       "depNameTemplate": "node"
-    },
+    }
   ]
 }
