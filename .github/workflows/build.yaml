@@ -30,7 +30,7 @@ jobs:
         with:
           path: node_modules
           key: ${{ runner.os }}-npm-cache-${{ hashFiles('package-lock.json') }}
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: 20
       - name: npm install if cache is invalid
@@ -50,7 +50,7 @@ jobs:
         with:
           path: node_modules
           key: ${{ runner.os }}-npm-cache-${{ hashFiles('package-lock.json') }}
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: 20
       - name: Check Format
@@ -72,7 +72,7 @@ jobs:
         with:
           path: node_modules
           key: ${{ runner.os }}-npm-cache-${{ hashFiles('package-lock.json') }}
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: 20
       - name: Test
