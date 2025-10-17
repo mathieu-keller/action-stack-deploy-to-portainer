@@ -1,4 +1,0 @@
-{
-  "extends": ["./.github/linters/.eslintrc.yml"],
-  "root": true
-}
