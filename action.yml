@@ -11,8 +11,6 @@ inputs:
   portainerFilePath:
     description: 'The file path of the Docker Compose file to be deployed'
     required: true
-
-secrets:
   portainerHost:
     description: 'The host URL of the Portainer instance'
     required: true
