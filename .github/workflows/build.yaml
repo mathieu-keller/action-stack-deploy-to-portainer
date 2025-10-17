@@ -93,11 +93,6 @@ jobs:
       - name: Test
         id: npm-ci-test
         run: npm run ci-test
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   test-action:
     name: GitHub Actions Test
     runs-on: ubuntu-22.04
