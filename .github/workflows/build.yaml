@@ -14,7 +14,7 @@ permissions:
 jobs:
   dry-release:
     name: dry release
-    uses: mathieu-keller/github-action-workflows/.github/workflows/semantic-release.yaml@2.1.0
+    uses: mathieu-keller/github-action-workflows/.github/workflows/semantic-release.yaml@2.1.2
     with:
       release-branch: main
       dry: true
@@ -110,7 +110,7 @@ jobs:
     needs:
       - test-action
     name: release
-    uses: mathieu-keller/github-action-workflows/.github/workflows/semantic-release.yaml@2.1.0
+    uses: mathieu-keller/github-action-workflows/.github/workflows/semantic-release.yaml@2.1.2
     with:
       release-branch: main
       dry: false
