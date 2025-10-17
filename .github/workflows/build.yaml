@@ -20,7 +20,7 @@ jobs:
       dry: true
   npm:
     name: cache node modules
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -40,7 +40,7 @@ jobs:
     needs:
       - npm
     name: check-format
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -60,7 +60,7 @@ jobs:
     needs:
       - npm
     name: tests
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -80,7 +80,7 @@ jobs:
         run: npm run ci-test
   test-action:
     name: GitHub Actions Test
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs:
       - check-format
       - tests
