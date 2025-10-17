@@ -110,10 +110,14 @@ jobs:
         id: checkout
         uses: actions/checkout@v4
       - name: Test Portainer connectivity
+        env:
+          NODE_TLS_REJECT_UNAUTHORIZED: '0'
         run: curl -v ${{ secrets.PORTAINER_HOST }}/api/system/status
       - name: Test Local Action
         id: test-action
         uses: ./
+        env:
+          NODE_TLS_REJECT_UNAUTHORIZED: '0'
         with:
           portainerHost: ${{ secrets.PORTAINER_HOST }}
           portainerApiKey: ${{ secrets.PORTAINER_API_KEY }}
