@@ -32,7 +32,7 @@ jobs:
           key: ${{ runner.os }}-npm-cache-${{ hashFiles('package-lock.json') }}
       - uses: actions/setup-node@v6
         with:
-          node-version: 22
+          node-version: 24
       - name: npm install if cache is invalid
         if: steps.npm-cache-node-modules.outputs.cache-hit != 'true'
         run: npm ci
@@ -52,7 +52,7 @@ jobs:
           key: ${{ runner.os }}-npm-cache-${{ hashFiles('package-lock.json') }}
       - uses: actions/setup-node@v6
         with:
-          node-version: 22
+          node-version: 24
       - name: Check Format
         id: npm-format-check
         run: npm run format:check
@@ -74,7 +74,7 @@ jobs:
           key: ${{ runner.os }}-npm-cache-${{ hashFiles('package-lock.json') }}
       - uses: actions/setup-node@v6
         with:
-          node-version: 22
+          node-version: 24
       - name: Test
         id: npm-ci-test
         run: npm run ci-test
