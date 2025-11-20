@@ -9,7 +9,7 @@
 
 “Portainer Deployment Action” is a GitHub Action that automates the deployment of Docker Compose files to Portainer. It ensures consistent, repeatable deployments and reduces the risk of human error. It’s particularly beneficial for maintaining higher environments where manual deployments can be cumbersome. Enjoy seamless deployments with this action! 😊
 
-## Parameters
+## Parameters.
 
 The action takes the following parameters:
 
